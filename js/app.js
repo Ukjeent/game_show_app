@@ -125,7 +125,7 @@ checkWin()
 function checkWin() {
     const show = document.getElementsByClassName('show');
     const letter = document.getElementsByClassName('letter');
-       if (show.length === letter.length){
+       if (show.length >= 1 && show.length === letter.length){
             toggleFinalOverlay('win', 'Congratulations!', 'Restart Game');
         } else if (missed >= 5) {
             toggleFinalOverlay('lose', 'Sorry!', 'Restart Game');
@@ -168,6 +168,7 @@ function restartGame(){
     resetButtons()
     clearLetterShowClass()
     removeOldPhraseFromUl()
+    getNewArrayAndAppendToSite()
 }
 
 // Resets the hearts
@@ -202,10 +203,10 @@ function resetButtons() {
 
 function removeOldPhraseFromUl() {
     const li = ulList.children;
-    for (let i = 0; i < li.length; i++) {
-        console.log(li[i]);
-        ulList.removeChild(li[i]);
-    }
+    while ( li.length > 0 ) {
+        ulList.removeChild(li[0]);
+        console.log(li[0])
+}
 }
 
 function clearLetterShowClass() {
@@ -216,8 +217,6 @@ function clearLetterShowClass() {
         }
        }
  }
-
-
 
 
 
