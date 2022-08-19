@@ -19,17 +19,14 @@ let letterFound = '';
 
 // Array with phrases
 let phrases = [
-    'te',
-    'iu',
-    'pi'
-    // 'Stand up and catch that ball',
-    // 'Somebody help me',
-    // 'No problem',
-    // 'Look at that pumpkin',
-    // 'Come on down',
-    // 'What a big eater he is',
-    // 'Shape up or ship out',
-    // 'What a big dog'
+    'Stand up and catch that ball',
+    'Somebody help me',
+    'No problem',
+    'Look at that pumpkin',
+    'Come on down',
+    'What a big eater he is',
+    'Shape up or ship out',
+    'What a big dog'
 ];
 
 
