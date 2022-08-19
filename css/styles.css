@@ -93,6 +93,8 @@ button {
 }
 
 .show {
+  transition: color 0.2s 0s ease-in, background-color .2s 0s ease-in ;
+  transition-timing-function: ease-in, ease-in;
   color: #000;
   background-color: #76CE82;
 }
@@ -102,6 +104,12 @@ button {
 .keyrow {
   display: flex;
   justify-content: center;
+}
+
+.keyrow button:hover {
+  transition: border 0.5s 0s ease-in-out, background-color .5s 0s ease-in-out ;
+  border: grey 1px solid;
+  background-color: lightgrey;
 }
 
 .chosen {
@@ -118,6 +126,10 @@ button {
   border-radius: 5px;
   font-size: var(--font-size-medium);
 }
+.btn__reset:hover {
+  transition: box-shadow 0.5s 0s ease-in-out, ;
+  box-shadow: 0 0 0 2px #d0d0d0;
+} 
 
 /* Overlay */
 
