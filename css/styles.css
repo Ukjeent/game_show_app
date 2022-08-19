@@ -127,7 +127,7 @@ button {
   font-size: var(--font-size-medium);
 }
 .btn__reset:hover {
-  transition: box-shadow 0.5s 0s ease-in-out, ;
+  transition: box-shadow 0.5s 0s ease-in-out;
   box-shadow: 0 0 0 2px #d0d0d0;
 } 
 
