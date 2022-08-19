@@ -125,7 +125,7 @@ function checkWin() {
         } else if (show.length >= 1 && show.length === letter.length && phrases.length === 1) {
             toggleFinalOverlay('win', 'Congratulations, you completed the game!', 'Restart Game') // Toggles an overlay when a player gets all phrases correct.
         } else if (missed >= 5) {
-            toggleFinalOverlay('lose', "Sorry, that's not the correct phrase!", 'Restart Game'); // Toggles an overlay when a player has lost all five hearts. 
+            toggleFinalOverlay('lose', "Sorry, wrong guess!", 'Restart Game'); // Toggles an overlay when a player has lost all five hearts. 
         }
 }
 
