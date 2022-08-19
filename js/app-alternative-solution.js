@@ -19,17 +19,14 @@ let letterFound = '';
 
 // Array with phrases
 let phrases = [
-    'te',
-    'iu',
-    'pi'
-    // 'Stand up and catch that ball',
-    // 'Somebody help me',
-    // 'No problem',
-    // 'Look at that pumpkin',
-    // 'Come on down',
-    // 'What a big eater he is',
-    // 'Shape up or ship out',
-    // 'What a big dog'
+    'Stand up and catch that ball',
+    'Somebody help me',
+    'No problem',
+    'Look at that pumpkin',
+    'Come on down',
+    'What a big eater he is',
+    'Shape up or ship out',
+    'What a big dog'
 ];
 
 
@@ -62,18 +59,18 @@ function getRandomPhraseAsArray(arr){
     return charactersInPhrase; // Returns the new array. 
 }
 
-// Creates li elements, adds the characters from the array to the li and appends the elemements to the site.
+// Creates li elements, appends the li elemements to the site.
 function addPhraseToDisplay(arr) {
     for (let i = 0; i < arr.length; i++) {
         let letter = arr[i];
         const letterLi = document.createElement('li'); // Create li elements. 
-        letterLi.innerHTML += `${letter}`; // Add the characters to the li.
-            if(letterLi.innerHTML !== " "){
-                letterLi.className = 'letter'; // If li includes a character - add the class "letter"
-            } else {
-                letterLi.className = 'space'; // If li includes a space - add the class "space". (This was not mentioned in the instructions)
+        letterLi.innerHTML = '&nbsp;'; // Adds a space to the li. Without this the letter styling "buggs out". 
+            if (phraseArray[i].trim().length === 1){
+                letterLi.className = 'letter'; // If the string in the array includes a character, add the class "letter" to the li element with the same number. 
+            } else if (phraseArray[i].trim().length === 0)  {
+                letterLi.className = 'space'; // If the string in the array includes a space, add the class "space" to the li element with the same number. 
             };
-        ulList.appendChild(letterLi); // appends the li elements to the ul. 
+        ulList.appendChild(letterLi); // Appends the li elements to the ul
     }
 }
 
@@ -84,20 +81,21 @@ function getNewArrayAndAppendToSite() {
 }
 
 
-
-// Checks if the input from the player matches one of the letters in the phrase. 
+// Checks if the input from the player matches one of the letters in the array with characters. 
 function checkLetter(inputValue) {
     let foundLetters;
-    for (let i = 0; i < letters.length; i++) {
-     const letter = letters[i];
-     if (inputValue === letter.innerHTML){
-         letter.className = 'letter show'; // Adds the class "show" to the li if the input matches the letter in the li. 
+    const liList = ulList.children;
+    for (let i = 0; i < phraseArray.length; i++) {
+        const li = liList[i];
+        const array = phraseArray[i]
+     if (inputValue === array){ 
+        li.innerHTML = array; // Add the character from the array to the li element if the input matches a character in the array.
+        li.className = 'letter show'; // Adds the class "show" to the li element.
          foundLetters = inputValue;
      }
     }
     return foundLetters; // Returns the found letter. 
  }
-
 
 // listens for a button click on the "keyboard" and disables the button. 
 document.addEventListener('click', (e) => {
@@ -220,8 +218,6 @@ function clearLetterShowClass() {
         }
        }
  }
-
-
 
 
 
