@@ -1,3 +1,5 @@
+// An alternative solution that isn't adding the letters to the li before the player guesses the letter. 
+// That means the player can not "cheat" by opening the console and the characters will not show on hover. 
 
 const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
