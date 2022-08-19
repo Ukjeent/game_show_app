@@ -1,30 +1,34 @@
+// store the number from the phrase picker and remove that phrase from the array
+// When all arrays are removed disable something like. You completed the game.
 
+// if they didnt find the array, dont remove
 
 const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
+const ulList = document.querySelector('#phrase ul');
+let phraseArray;
 const startOverlay = document.getElementById('overlay');
 const resetBtn = document.querySelector('.btn__reset');
 const hearts = document.getElementsByClassName('tries');
+const letters = document.getElementsByClassName('letter');
 const liveHeartString = '<img src="images/liveHeart.png" height="35px" width="30px"></img>';
 const lostHeartString = '<img src="images/lostHeart.png" height="35px" width="30px"></img>';
+let arrayNumber;
+let removedPhrase;
 
 let missed = 0;
 // Store the letters found in a string.
 let letterFound = '';
 
-// Removes the start overlay when a player click the start button
-document.addEventListener('click', (e) => {
-    const buttonClick = e.target;
-    if (buttonClick.className === 'btn__reset') {
-        overlay.style.display = 'none';
-    } 
-});
 
+//
 // Array with phrases
+//
+
 const phrases = [
-    'test phrase'
-    // 'Stand up and catch that ball',
-    // 'Somebody help me',
+    'test phrase',
+    'Stand up and catch that ball',
+    'Somebody help me',
     // 'No problem',
     // 'Look at that pumpkin',
     // 'Come on down',
@@ -34,18 +38,36 @@ const phrases = [
 ];
 
 
+//
+// get phrase
+//
+
+// Removes the start overlay when a player click the start button
+document.addEventListener('click', (e) => {
+    const buttonClick = e.target;
+    if (buttonClick.className === 'btn__reset' && buttonClick.textContent === 'Start Game') {
+        overlay.style.display = 'none';
+        getNewArrayAndAppendToSite()
+    } else if (buttonClick.className === 'btn__reset' && buttonClick.textContent === 'Restart Game') {
+        overlay.style.display = 'none';
+        letterFound = '';
+        restartGame()
+    }
+});
+
+
 // gets a random phrase from an array and stores the characters in a new array
 function getRandomPhraseAsArray(arr){
-    const randomNumber = Math.floor(Math.random() * arr.length);
-    let randomPhrase = arr[randomNumber];
+    const randomNumber = Math.floor(Math.random() * arr.length); // Gets a random number. 
+    arrayNumber = randomNumber; // Store the number in the varriable "arrayNumber"
+    let randomPhrase = arr[randomNumber]; // Takes the random number and gets a phrase from the array.
     randomPhrase = randomPhrase.toLowerCase();
-    const charactersInPhrase = randomPhrase.split('');
+    const charactersInPhrase = randomPhrase.split(''); // Splits the phrase in to an array of characters. 
     return charactersInPhrase;
 }
 
 // Takes the array of characters and creates li elements then appends them to the ul.
 function addPhraseToDisplay(arr) {
-    const ulList = document.querySelector('#phrase ul');
     for (let i = 0; i < arr.length; i++) {
         let letter = arr[i];
         const letterLi = document.createElement('li');
@@ -59,15 +81,17 @@ function addPhraseToDisplay(arr) {
     }
 }
 
-// Calls the function to get a random phrase and stores the array with charaters in a variable.
-const phraseArray = getRandomPhraseAsArray(phrases);
-// Calls the funtion that creates li elements and append to the site. 
-addPhraseToDisplay(phraseArray);
+function getNewArrayAndAppendToSite() {
+    phraseArray = getRandomPhraseAsArray(phrases); // Calls the function to get a random phrase and stores the array with charaters in a variable.
+    addPhraseToDisplay(phraseArray); // Calls the funtion that creates li elements and append to the site. 
+}
 
 
+// 
+//
+//
 
 function checkLetter(inputValue) {
-    const letters = document.getElementsByClassName('letter');
     let foundLetters;
     for (let i = 0; i < letters.length; i++) {
      const letter = letters[i];
@@ -78,7 +102,6 @@ function checkLetter(inputValue) {
     }
     return foundLetters;
  }
-
 
 
 
@@ -115,23 +138,84 @@ function toggleFinalOverlay(overlayClass, titleText, btnText){
     overlay.className = overlayClass;
     title.textContent = titleText;
     resetBtn.textContent = btnText;
-    restartGame()
 }
 
-function restartGame(){
-    const buttons = qwerty.firstElementChild.children;
+//
+// Restart game
+//
+
+ //
+ //
+ //
+
+ // A function to continue the game and get a new array
+ function continuePlaying(){
     missed = 0;
+    resetHearts()
+    resetButtons()
+    clearLetterShowClass()
+    removeStringFromPhrases()
+}
+
+ function removeStringFromPhrases() {
+    removedPhrase = phrases.splice( arrayNumber, 1 );
+ }
+
+// A function to restart the game
+function restartGame(){
+    missed = 0;
+    resetHearts()
+    resetButtons()
+    clearLetterShowClass()
+    removeOldPhraseFromUl()
+}
+
+// Resets the hearts
+function resetHearts() {
     for (let i = 0; i < hearts.length; i++){
         hearts[i].innerHTML = liveHeartString;
     }
-    for (let i = 0; i < buttons.length; i++)
-        button = buttons[i];
-        if (button.disabled) {
-            button.disabled = '';
-            button.className = '';
-        }
 }
 
+// Resets the keyboard
+    // Removes the class "chosen"
+    // Removes "disabled"
+function resetButtons() {
+    const buttonRows= qwerty.children;
+    for (let i = 0; i < buttonRows.length; i++){
+        let buttonRow = buttonRows[i];
+        let buttons = buttonRow.children;
+            for (let i = 0; i < buttons.length; i++) {
+                let button = buttons[i];
+                if (button.disabled) {
+                    button.disabled = false;
+                    button.className = '';
+                }
+            }
+    }
+}
+
+// 16 - 8 = 8
+// 11 - 5 = 6 
+// 28 - 14 = 14
+
+
+function removeOldPhraseFromUl() {
+    const li = ulList.children;
+    for (let i = 0; i < li.length; i++) {
+        console.log(li[i]);
+        ulList.removeChild(li[i]);
+    }
+}
+
+function clearLetterShowClass() {
+    for (let i = 0; i < letters.length; i++) {
+        const letter = letters[i];
+        if (letter.className === 'letter show'){
+            letter.className = 'letter';
+        }
+       }
+ }
 
 
 
